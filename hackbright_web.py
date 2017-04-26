@@ -11,14 +11,20 @@ app = Flask(__name__)
 def get_student():
     """Show information about a student."""
 
+    #get student data
     github = request.args.get('github')
 
     first, last, github = hackbright.get_student_by_github(github)
 
+    #get student's projects
+    grades = hackbright.get_all_student_grades(github)
+    #returns first, last, grade, project title
+
     html = render_template("student_info.html",
                            first=first,
                            last=last,
-                           github=github)
+                           github=github,
+                           grades=grades)
     return html
 
 
@@ -47,7 +53,7 @@ def confirm_add():
     last_name = request.form.get('last_name')
     first_name = request.form.get('first_name')
     github = request.form.get('github')
-    
+
     hackbright.make_new_student(first_name, last_name, github)
 
     html = render_template("add_confirmation.html",
@@ -57,6 +63,24 @@ def confirm_add():
 
     return html
 
+
+@app.route("/project")
+def show_project(title):
+    """Given project title this displays project info."""
+
+    #this receives the title via GET via link from student_info.html
+    #still need to go add that link to the html...
+    title = request.args.get('title')
+
+    #list with title, description, max_grade
+    project_title, description, max_grade = hackbright.get_project_by_title(title)
+
+    html = render_template("show_project.html",
+                           project_title=project_title,
+                           description=description,
+                           max_grade=max_grade)
+
+    return html
 
 if __name__ == "__main__":
     hackbright.connect_to_db(app)

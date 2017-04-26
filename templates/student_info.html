@@ -7,5 +7,12 @@
     <h1>{{ first }} {{ last }}</h1>
 
     <p>GitHub Account: {{github }}</p>
+
+    <b>Grades:</b><br>
+    <ul>
+    {% for row in grades %}
+        <li> <a href="/project?{{ row[3] }}">{{ row[3] }}</a> {{ row[2] }}</li>
+    {% endfor %}
+    </ul>
 </body>
 </html>
