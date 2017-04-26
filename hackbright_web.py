@@ -65,7 +65,7 @@ def confirm_add():
 
 
 @app.route("/project")
-def show_project(title):
+def show_project():
     """Given project title this displays project info."""
 
     #this receives the title via GET via link from student_info.html
@@ -75,7 +75,7 @@ def show_project(title):
     #list with title, description, max_grade
     project_title, description, max_grade = hackbright.get_project_by_title(title)
 
-    html = render_template("show_project.html",
+    html = render_template("project_info.html",
                            project_title=project_title,
                            description=description,
                            max_grade=max_grade)
