@@ -68,17 +68,21 @@ def confirm_add():
 def show_project():
     """Given project title this displays project info."""
 
-    #this receives the title via GET via link from student_info.html
-    #still need to go add that link to the html...
+    #this receives the title and github via GET via link from student_info.html
     title = request.args.get('title')
 
     #list with title, description, max_grade
     project_title, description, max_grade = hackbright.get_project_by_title(title)
 
+    # get a list with student name, grade, github
+    # returns first_name, last_name, grade, github
+    students = hackbright.get_students_for_project(title)
+
     html = render_template("project_info.html",
                            project_title=project_title,
                            description=description,
-                           max_grade=max_grade)
+                           max_grade=max_grade,
+                           students=students)
 
     return html
 

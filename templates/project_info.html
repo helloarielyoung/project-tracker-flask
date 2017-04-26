@@ -10,5 +10,16 @@
         <br>
         Max Grade: {{ max_grade }}</p>
         <br>
+        <hr>
+        <br>
+    <h1>Students who have completed this project:</h1>
+    <p>
+<!-- first_name, last_name, grade, github -->
+    {% for row in students %}
+    <li> <a href="/student?github={{ row[3] }}">{{ row[0] }} {{ row[1] }}</a> {{ row[2] }}</li>
+    {% endfor %}
+    </p>
+
+
 </body>
 </html>

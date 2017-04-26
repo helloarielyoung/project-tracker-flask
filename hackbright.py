@@ -140,6 +140,22 @@ def get_all_student_grades(github):
     return rows
 
 
+def get_students_for_project(title):
+    """Given a project title, display students and grades."""
+
+    QUERY = """
+        SELECT DISTINCT first_name, last_name, grade, github
+            FROM grades g
+            JOIN students s ON g.student_github = s.github
+        WHERE g.project_title = :title
+        ORDER BY last_name, first_name, grade
+            """
+    db_cursor = db.session.execute(QUERY, {'title': title})
+    rows = db_cursor.fetchall()
+
+    return rows
+
+
 def handle_input():
     """Main loop.
 
