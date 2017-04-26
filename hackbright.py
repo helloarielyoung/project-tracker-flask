@@ -125,7 +125,7 @@ def get_all_student_grades(github):
     """Given a github ID, displays all student grades"""
 
     QUERY = """
-        SELECT first_name, last_name, grade, project_title
+        SELECT DISTINCT first_name, last_name, grade, project_title
             FROM students s
             JOIN grades g ON s.github = g.student_github
         WHERE s.github = :github
